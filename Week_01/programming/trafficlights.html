@@ -1,0 +1,66 @@
+<style>
+    .trafficlight{
+        list-style: none;
+        width: 80px;
+        height: 80px;
+        background: grey;
+        border-radius: 50%;
+        float: left;
+        margin:20px;
+    }
+    ul{
+        margin: 200px;
+        }
+    .red.light{
+      background: red;
+    }
+    .yellow.light{
+      background: yellow;
+    }
+    .green.light{
+      background: green;
+    }
+</style>
+
+<ul> 
+    <li class="trafficlight red"></li> 
+    <li class="trafficlight yellow"></li> 
+    <li class="trafficlight green"></li> 
+</ul> 
+<button id="start">START</button>
+<script>
+    function trafficlights(i){
+        let lights = document.getElementsByClassName('trafficlight')
+        for (let i = 0; i < 3; i++) {
+        let el = lights[i]
+        el.classList.remove('light')
+        }
+        lights[i].classList.add('light')
+    }
+    function sleep(t){
+      return new Promise((resolve,reject)=>{
+        setTimeout(resolve, t)
+      })
+    }
+
+    // function happen(element,eventName){
+    //     return new Promise((resolve,reject) =>{
+    //         element.addEventListener(eventName,resolve,{once:true});
+    //     })
+    // }
+ 
+
+    async function go(){
+      while(true){
+        trafficlights(0)
+        await sleep(1000)
+        trafficlights(1)
+        await sleep(1000)
+        trafficlights(2)
+        await sleep(1000)
+      }
+    }
+
+    let but = document.getElementById('start')
+    but.addEventListener('click',go)
+</script>
