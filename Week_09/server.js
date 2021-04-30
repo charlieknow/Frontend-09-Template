@@ -1,38 +1,38 @@
-const http = require('http');
+const HTTP = require('http');
 
-http.createServer((request, response) => {
+HTTP.createServer((request, response) => {
     let body = [];
-    request.on('error', (err) => {
+
+    request.on('error', err => {
         console.error(err);
-    }).on('data', (chunk) => {
-        body.push(chunk.toString());
+    }).on('data', chunk => {
+        // body.push(chunk.toString());
+        body.push(chunk);
+
+        // console.log(body.toString())
     }).on('end', () => {
-        body = body.join("");
+        // body = body.toString();
+        console.log(body);
+        body = Buffer.concat(body).toString();
+
         console.log('body:', body);
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end(
-            `<html maaa=a >
-                <head>
-                    <style>
-                        body div #myid {
-                            width: 100px;
-                            background-color: #ff5000;
-                        }
-                        body div img {
-                            width: 30px;
-                            background-color: #ff1111;
-                        }
-                    </style>
-                </head>
+
+        // 必须写 Content-Type
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end(`
+            <html>
+                <head d=c a='dd'></head>
+                <style>
+                    body div.q {
+                        background: red;
+                    }
+                </style>
                 <body>
-                    <div>
-                        <img id="myid" />
-                        <img />
-                    </div>
+                    <div class='q a'></div>
                 </body>
-            </html>`);
+            </html>
+        `);
     })
-}).listen(8088);
+}).listen(8008);
 
 console.log('server started');
-
